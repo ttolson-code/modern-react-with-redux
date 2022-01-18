@@ -3,9 +3,7 @@ import React from 'react';
 class ImageCard extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { gridSpans: 0 };
-
     this.imageRef = React.createRef();
   }
   
@@ -16,6 +14,7 @@ class ImageCard extends React.Component {
   }
 
   setGridSpans = () => {
+    // Conditional chaining
     const imageHeight = this?.imageRef?.current?.clientHeight;
 
     if (imageHeight) {
