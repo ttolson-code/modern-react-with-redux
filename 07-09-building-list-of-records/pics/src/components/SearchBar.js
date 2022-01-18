@@ -37,7 +37,7 @@ class SearchBar extends React.Component {
       <div className="ui segment">
         <form onSubmit={this.onFormSubmit} className="ui form">
           <div className="field">
-            <label>Image Search</label>
+            <label>Image Search:</label>
             {/* Do no use () on this.onInputChange, 
             need to pass reference to the function to be called sometime in the future. */}
             <input 
