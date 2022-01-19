@@ -9,8 +9,23 @@ const ImageList = (props) => {
   const images = props.images.map((image) => {
     return <ImageCard key={image.id} image={image} />
   });
-
-  return <div className={`image-list ${props.images.length ? 'ui segment' : ''}`}>{images}</div>;
+  
+  if (props.images.length) {
+    return <div className="image-list ui segment">{images}</div>;
+  } else {
+    return (
+      <div className="ui segment tutorial">
+        <h2>Enter a search term to display images.</h2>
+        <h3>Examples:</h3>
+        <ul>
+          <li>Tree</li>
+          <li>Fish</li>
+          <li>Space</li>
+          <li>Cars</li>
+        </ul>
+      </div>
+    );
+  }
 };
 
 export default ImageList;
