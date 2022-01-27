@@ -4,9 +4,8 @@ import purify from 'dompurify';
 
 const Search = () => {
   const [searchText, setSearchText] = useState('');
+  const [debouncedSearchText, setDebouncedSearchText] = useState(searchText);
   const [results, setResults] = useState([]);
-
-  console.log(results);
 
   // the 'useEffect' hook
   // Allows function components to use something like lifecycle methods.
@@ -22,6 +21,17 @@ const Search = () => {
   // ...nothing = run at initial render, run after ever rerender
   // [data] (array with data) = run at initial render, 
   // run after ever rerender if data has changed since last rerender
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setDebouncedSearchText(searchText);
+    }, 750);
+
+    return () => {
+      clearTimeout(timerId);
+    }
+  }, [searchText]);
+
   useEffect(() => {
     const search = async () => {
       const { data } = await axios.get('https://en.wikipedia.org/w/api.php', {
@@ -30,21 +40,32 @@ const Search = () => {
           list: 'search',
           origin: '*',
           format: 'json',
-          srsearch: searchText
+          srsearch: debouncedSearchText
         }
       });
 
       setResults(data.query.search);
     };
-    
-    if (searchText) {
+
+    if (debouncedSearchText) {
       search();
-    };
-  }, [searchText]);
+    } else {
+      setResults([]);
+    }
+  }, [debouncedSearchText]);
+  
 
   const renderedResults = results.map((result) => {
     return (
       <div key={result.pageid} className="item">
+        <div className="right floated content">
+          <a 
+            className="ui button"
+            href={`https://en.wikipedia.org?curid=${result.pageid}`}
+          >
+            Go
+          </a>
+        </div>
         <div className="content">
           <div className="header">{result.title}</div>
           <div  dangerouslySetInnerHTML={{   __html: purify.sanitize(result.snippet),  }}></div>
