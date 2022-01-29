@@ -44,13 +44,10 @@ const Dropdown = ({ options, label, selected, onSelectedChange }) => {
       </div>
     )
   });
-
-
-
+  
   // After component is rendered for the first time
   // we get a reference to the div we created a reference to. 
   // console.log(ref.current);
-
   return (
     <div>
       <div ref={ref} className="ui form">
@@ -69,7 +66,7 @@ const Dropdown = ({ options, label, selected, onSelectedChange }) => {
         </div>
       </div>
       {/* <div className="ui segment">
-        <p style={{ color: selected.value }}> This text is {selected.value}.</p>
+        <p style={{ color: selected.value }}>The text color is {selected.value}.</p>
       </div> */}
     </div>
   )
