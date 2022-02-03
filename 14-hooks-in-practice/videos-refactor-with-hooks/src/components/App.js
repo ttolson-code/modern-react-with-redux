@@ -9,6 +9,8 @@ const App = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [videos, search] = useVideos('Bass fishing');
   
+  // Whenever we complete a search, and get back a list of videos,
+  // we will select the first video as the default.
   useEffect(() => {
     setSelectedVideo(videos[0]);
   }, [videos]);
