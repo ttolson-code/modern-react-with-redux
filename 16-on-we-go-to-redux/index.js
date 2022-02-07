@@ -1,6 +1,7 @@
 // People dropping off a form (Action Creators).
 const createPolicy = (name, amount) => {
-  return { // Action (a form in our analogy)
+  // Return an Action (a form in our analogy).
+  return {
     type: 'CREATE_POLICY',
     payload: {
       name: name,
@@ -61,25 +62,42 @@ const policies = (listOfPolicies = [], action) => {
 
 const { createStore, combineReducers } = Redux;
 
+// Properties to our state object will be equal our 'key' names.
+// Convention to name reducer the same as 'key' but not required.
 const ourDepartments = combineReducers({
   accounting: accounting,
   claimsHistory: claimsHistory,
   policies: policies
 });
 
-const store = createStore(ourDepartments);
+// With redux you can only modify the state object through the use
+// of the dispatch function and the action creators. There is no way to 
+// manually reach into the store and modifty the state. 
 
-// createPolicy('Alex', 20)
-// createClaim('Alex', 120)
-// deletePolicy('Alex')
+const store = createStore(ourDepartments);
 
 store.dispatch(createPolicy('Alex', 20));
 store.dispatch(createPolicy('Jim', 30));
 store.dispatch(createPolicy('Bob', 40));
-
 store.dispatch(createClaim('Alex', 120));
 store.dispatch(createClaim('Jim', 50));
-
 store.dispatch(deletePolicy('Bob'));
 
 console.log(store.getState());
+
+// Redux Cycle:
+
+// To Change the state of our app, we call an...
+// Action Creator
+
+// Which produces an...
+// Action (Object)
+
+// Which gets fed to...
+// dispatch (function that makes copies)
+
+// Forwards the action to the...
+// Reducers (process the actions, modify the data, and returns as updated state)
+
+// Creates new...
+// State 
