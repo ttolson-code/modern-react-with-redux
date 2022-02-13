@@ -11,10 +11,14 @@ export default combineReducers({
 // Rules of Reducers
 
 // 1. Must return any value besides 'undefined'. Cannot be undefined during initilization or any other time.
+
 // 2. Must produces 'state', or data to be used inside of an app using only previous state and the action object.
+
 // 3. Must not reach 'out of itself' to decide what value to return (reducers are pure).
-// Example: 
+
 /*
+Example: 
+
   export default (state, action) => {
     // Bad!
     return document.querySelector('input');
@@ -28,14 +32,15 @@ export default combineReducers({
 */
 
 // 4. Must not mutate its input 'state' argument (possibly misleading!)
-// Technically you can, but it is convention to not. There are some scenerios 
-// in which this would cause unexpected behavior in the application and is best
-// to simply never mutate state in a reducer.
 
 /*
+Technically you can, but it is convention to not. There are some scenerios 
+in which this would cause unexpected behavior in the application and is best
+to simply never mutate state in a reducer.
+
 When a reducer gets an array or object passed in as state, the state is a reference to the array or object. If you return that state, you're returning a reference to the same object - so even if you've changed a property or value on the state, it's still the same array/object.
 
-This check of:
+This redux source code below of:
 
 nextStateForKey !== previousStateForKey
 
@@ -53,4 +58,65 @@ And because so many of us are beginners, we won't know that it won't re-render a
 
 So the equality check, verifies the reference in memory, not the contents of the reference.
 Hope this helps.
+*/
+
+/*
+Examples of safe ways to update state in reducers:
+
+Removing an element from an array: 
+
+Bad:
+state.pop()
+
+Good:
+state.filter(element => element !== 'hi')
+
+Adding an element to an array:
+
+Bad:
+state.push('hi');
+
+Good:
+[...state, 'hi']
+
+Replacing an element in an array:
+
+Bad:
+state[0] = 'hi'
+
+Good:
+state.map(element => element === 'hi' ? 'bye' : element)
+
+Updating a property in an object:
+
+Bad:
+state.name = 'Sam'
+
+Good:
+{ ...state, name: 'Sam' }
+
+Adding a property to an object:
+
+Bad:
+state.age = 30
+
+Good:
+
+{ ...state, age: 30 }
+
+Removing a property form an object:
+
+Bad:
+delete state.name
+
+Good:
+{ ...state, age: undefined } (replace element with undefined, not true removal)
+
+or 
+
+_.omit(state, 'age') (lodash)
+
+or
+
+const {age, ...rest} = state
 */
