@@ -24,6 +24,14 @@ export const fetchPosts = () => {
     // - Most popular use of middleware is for deal with async action
     // - We are utlizing 'redux-thunk'
   
-    dispatch({ type: 'FETCH_POSTS', payload: response })
+    dispatch({ type: 'FETCH_POSTS', payload: response.data })
+  };
+};
+
+export const fetchUser = (id) => {
+  return async(dispatch) => {
+    const response = await jsonPlaceholder.get(`/users/${id}`);
+
+    dispatch({ type: 'FETCH_USER', payload: response.data })
   };
 };

@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import postsReducer from './postsReducer';
+import usersReducer from './usersReducer';
 
 // When redux first boots up its going to call the 
 // reducers one time (during intialization).
 
 export default combineReducers({
-  posts: postsReducer
+  posts: postsReducer,
+  users: usersReducer
 });
 
 // Rules of Reducers
