@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import App from './components/App';
 import reducers from './reducers';
 
+// Create Redux store.
 // Wire up 'redux-thunk' middleware to redux store.
 const store = createStore(reducers, applyMiddleware(thunk));
 

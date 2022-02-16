@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Blog
+
+React application that uses Redux with Redux Thunk middleware to dispatch chained asynchronous actions to call an API.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
