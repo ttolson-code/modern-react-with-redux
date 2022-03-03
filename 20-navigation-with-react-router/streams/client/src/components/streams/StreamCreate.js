@@ -1,10 +1,33 @@
 import React from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
 
-const StreamCreate = () => {
-  return (
-    <div>StreamCreate</div>
-  );
+class StreamCreate extends React.Component {
+  renderInput({ input, label }) {
+    return (
+      <div className="field">
+        <label>{label}</label>
+        <input {...input} />
+      </div>
+    );
+  }
+
+  onSubmit(formValues) {
+    console.log(formValues);
+  }
+
+  render() {
+    return (
+      // this.props.handleSubmit() is callback function provided by redux-forms
+      // pass our onSubmit method as argument
+      <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form">
+        <Field name="title" component={this.renderInput} label="Enter Title"/>
+        <Field name="description" component={this.renderInput} label="Enter Description" />
+        <button type="submit" className="ui button primary">Submit</button>
+      </form>
+    );
+  }
 };
 
-export default StreamCreate;
+export default reduxForm({
+  form: 'streamCreate'
+})(StreamCreate);
