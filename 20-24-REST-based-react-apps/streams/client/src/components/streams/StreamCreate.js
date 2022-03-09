@@ -1,5 +1,21 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { createStream } from '../../actions';
+
+/*
+Whenever a user tries to submit the form, we're going to validate the inputs.
+
+If the inputs are valid, we will call onSubmit which calls our action creator createStream.
+
+So that's going to run the createStream 'action'.
+
+Then we're going to attempt to make a request to our API server and create a new stream.
+
+We know that this is going to create a stream because we are following RESTful conventions.
+
+We are making a post request to /streams.
+*/
 
 class StreamCreate extends React.Component {
   renderError({ error, touched }) {
@@ -23,8 +39,8 @@ class StreamCreate extends React.Component {
     );
   }
 
-  onSubmit(formValues) {
-    console.log(formValues);
+  onSubmit = (formValues) => {
+    this.props.createStream(formValues);
   }
 
   render() {
@@ -55,7 +71,9 @@ const validate = (formValues) => {
   return errors;
 };
 
-export default reduxForm({
+const formWrapped = reduxForm({
   form: 'streamCreate',
   validate
 })(StreamCreate);
+
+export default connect(null, { createStream })(formWrapped);
