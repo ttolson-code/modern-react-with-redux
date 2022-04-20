@@ -27,6 +27,7 @@ class StreamCreate extends React.Component {
       );
     }
   }
+  
   // 'meta' argument comes from reduxForms
   renderInput = ({ input, label, meta }) => {
     const className = `field ${meta.error && meta.touched ? 'error' : '' }`
@@ -71,6 +72,7 @@ const validate = (formValues) => {
   return errors;
 };
 
+// Form wrapped version of our StreamCreate component.
 const formWrapped = reduxForm({
   form: 'streamCreate',
   validate
