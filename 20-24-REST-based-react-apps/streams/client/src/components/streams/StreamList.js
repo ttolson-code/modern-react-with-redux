@@ -69,7 +69,7 @@ class StreamList extends React.Component {
 
 const mapStateToProps = (state) => {
   return { 
-    // Turn object into an array before rendering in component. 
+    // Turn object into an array before rendering in component. Easier to 'map' over.
     // Object.values takes an object as an argument, 
     // it take the values of that object and inserts them into an array.
     streams: Object.values(state.streams),
