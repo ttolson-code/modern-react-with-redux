@@ -8,8 +8,8 @@ class StreamList extends React.Component {
     this.props.fetchStreams(); 
   }
   
-  // Helper function to render admin buttons (delete & edit).
-  renderAdmin(stream) {
+  // Render admin buttons (delete & edit).
+  renderAdminButtons(stream) {
     if (stream.userId === this.props.currentUserId) {
       return (
         <div className="right floated content">
@@ -23,12 +23,13 @@ class StreamList extends React.Component {
       );
     };
   };
-
+  
+  // Render Stream list.
   renderList() {
     return this.props.streams.map(stream => {
       return (
         <div className="item" key={stream.id}>
-          {this.renderAdmin(stream)}
+          {this.renderAdminButtons(stream)}
           <i className="large middle aligned icon camera" />
           <div className="content">
             {stream.title}
@@ -40,8 +41,9 @@ class StreamList extends React.Component {
       )
     })
   }
-
-  renderCreate() {
+  
+  // Render Create Stream button.
+  renderCreateButton() {
     if (this.props.isSignedIn) {
       return (
         <div style={{ textAlign: 'right'}}>
@@ -52,14 +54,14 @@ class StreamList extends React.Component {
       )
     }
   }
-
+  
   render() {
-    console.log(this.props.streams);
+    // console.log(this.props.streams);
     return (
       <div>
         <h2>Streams</h2>
         <div className="ui celled list">{this.renderList()}</div>
-        {this.renderCreate()}
+        {this.renderCreateButton()}
       </div>
     );
   };
@@ -67,6 +69,9 @@ class StreamList extends React.Component {
 
 const mapStateToProps = (state) => {
   return { 
+    // Turn object into an array before rendering in component. 
+    // Object.values takes an object as an argument, 
+    // it take the values of that object and inserts them into an array.
     streams: Object.values(state.streams),
     currentUserId: state.auth.userId,
     isSignedIn: state.auth.isSignedIn

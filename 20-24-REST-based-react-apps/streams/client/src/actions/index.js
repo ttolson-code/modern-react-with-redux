@@ -1,4 +1,5 @@
 import streams from '../apis/streams';
+import history from '../history';
 import {
   SIGN_IN, 
   SIGN_OUT,
@@ -22,11 +23,21 @@ export const signOut = () => {
   };
 };
 
+// Define an asynchronous action creator.
+// Any time we make an asynchronous action creator, 
+// we are making use of redux-thunk.
 export const createStream = (formValues) => {
-  return async (dispatch) => {
-    const response = await streams.post('/streams', formValues);
+  return async (dispatch, getState) => {
+    const { userId } = getState().auth;
 
-    dispatch({ type: CREATE_STREAM, payload: response.data })
+    // Axios post request.
+    const response = await streams.post('/streams', { ...formValues, userId });
+    
+    // Dispatch an action.
+    dispatch({ type: CREATE_STREAM, payload: response.data });
+    
+    // Do some programatic navigation to get the user back to the root route.
+    history.push('/');
   };
 };
 
