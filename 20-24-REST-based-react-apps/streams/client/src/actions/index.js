@@ -57,11 +57,19 @@ export const fetchStream = (id) => {
   };
 };
 
+// Note: Some backend apis will handle editing a record differently. 
+// By convention a PUT request should be made when updating ALL properties of a record
+// and a PATCH request should be made when only updating SOME properties of a record. 
+// Be aware of how the backend API is configured because sometimes this rule will not apply
+// and a PUT request will be used for both instances.
 export const editStream = (id, formValues) => {
   return async (dispatch) => {
-    const response = await streams.put(`/streams/${id}`, formValues);
+    const response = await streams.patch(`/streams/${id}`, formValues);
 
     dispatch({ type: EDIT_STREAM, payload: response.data });
+
+    // Do some programatic navigation to get the user back to the root route.
+    history.push('/');
   };
 };
 
