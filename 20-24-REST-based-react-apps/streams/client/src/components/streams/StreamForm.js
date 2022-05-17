@@ -1,12 +1,11 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-// Whenever a user tries to submit the form, we're going to validate the inputs.
-// If the inputs are valid, we will call onSubmit function which calls the action creator 'createStream'.
-// That's going to run the createStream 'action' 
-// which will attempt to make a request to our API server and create a new stream.
-// We know that this is going to create a stream because we are following RESTful conventions.
-// We are making a POST request to /streams.
+// Whenever a user submits the form, we're going to validate the inputs.
+// If the inputs are valid, we will call the onSubmit helper function 
+// that was passed by 'StreamCreate' or 'StreamEdit'. That's going to run the 
+// createStream or editStream 'action' which will attempt to make a request to 
+// our API server and create a new stream or edit an existing stream.
 
 class StreamForm extends React.Component {
   renderError({ error, touched }) {
@@ -31,12 +30,6 @@ class StreamForm extends React.Component {
     );
   }
   
-  // When a user submits our form from the StreamCreate component, 
-  // we attempt to make a request to our API server. 
-  // We're going to first define an action creator.
-  // Then wire up that action creator to our component through the Connect Helper.
-  // We're going to call the action creator from onSubmit function.
-  // The action creator is going to use Axios to make a network request over to our API.
   onFormSubmit = (formValues) => {
     this.props.onSubmit(formValues);
   }

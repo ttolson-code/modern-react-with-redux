@@ -14,7 +14,7 @@ class StreamCreate extends React.Component {
   // When a user submits our form from the stream create component, 
   // we attempt to make a request to our API server. 
   // We're going to first define an action creator.
-  // Then wire up that action creator to our component through the Connect Helper.
+  // Then wire up that action creator to our component through the connect helper function.
   // We're going to call the action creator from onSubmit function.
   // The action creator is going to use Axios to make a network request over to our API.
   onSubmit = (formValues) => {
