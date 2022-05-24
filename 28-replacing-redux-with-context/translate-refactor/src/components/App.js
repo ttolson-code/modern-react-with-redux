@@ -1,16 +1,10 @@
 import React from'react';
 import UserCreate from './UserCreate';
 import LanguageSelector from './LanguageSelector';
-import LanguageContext from '../contexts/LanguageContext';
+import { LanguageStore } from '../contexts/LanguageContext';
 import ColorContext from '../contexts/ColorContext';
 
 class App extends React.Component {
-  state = { language: 'english' };
-
-  onLanguageChange = (language) => {
-    this.setState({ language });
-  };
-
   render() {
     // Provider component is not the same 'provider' used by react-redux.
 
@@ -24,12 +18,12 @@ class App extends React.Component {
     // Value that is passed is pushed into the context object.
     return (
       <div className="ui container">
-        <LanguageSelector onLanguageChange={this.onLanguageChange} />
-        <LanguageContext.Provider value={this.state.language}>
+        <LanguageStore>
+          <LanguageSelector />
           <ColorContext.Provider value="red">
             <UserCreate />
           </ColorContext.Provider>
-        </LanguageContext.Provider>
+        </LanguageStore>
       </div>
     );
   }

@@ -11,4 +11,24 @@ import React from 'react';
 
 // The default value for the LanguageContext object is 'English'.
 
-export default React.createContext('english');
+const Context = React.createContext('english');
+
+// Export LanguageStore as 'named' export. 
+// When we try to import we will have to use curly braces.
+export class LanguageStore extends React.Component {
+  state = { language: 'english'};
+
+  onLanguageChange = (language) => {
+    this.setState({ language });
+  }
+
+  render() {
+    return (
+      <Context.Provider value={{ ...this.state, onLanguageChange: this.onLanguageChange }}>
+        {this.props.children}
+      </Context.Provider>
+    );
+  }
+}
+
+export default Context;
