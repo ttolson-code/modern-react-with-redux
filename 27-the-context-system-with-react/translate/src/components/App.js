@@ -1,6 +1,7 @@
 import React from'react';
 import UserCreate from './UserCreate';
 import LanguageContext from '../contexts/LanguageContext';
+import ColorContext from '../contexts/ColorContext';
 
 class App extends React.Component {
   state = { language: 'english' };
@@ -27,8 +28,11 @@ class App extends React.Component {
           <i className="flag us" onClick={() => this.onLanguageChange('english')} />
           <i className="flag nl" onClick={() => this.onLanguageChange('dutch')} />
         </div>
+
         <LanguageContext.Provider value={this.state.language}>
-          <UserCreate />
+          <ColorContext.Provider value="red">
+            <UserCreate />
+          </ColorContext.Provider>
         </LanguageContext.Provider>
       </div>
     );
@@ -36,3 +40,11 @@ class App extends React.Component {
 }
 
 export default App;
+
+// App Workflow:
+// Application loads up in the browser
+// We create a context object with a default value of 'english'
+// App component gets rendered, creates a Provider that wraps UserCreate
+// Provider updates the value of the context object to 'this.state.language;
+// Button and Field reach into context object, see the balue from 'this.state.language;
+// Button and Field render appropriate text to the screen.
